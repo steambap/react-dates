@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import momentPropTypes from 'react-moment-proptypes';
-import { forbidExtraProps, nonNegativeInteger } from 'airbnb-prop-types';
+import { forbidExtraProps, nonNegativeInteger, nonNegativeNumber } from 'airbnb-prop-types';
 import moment from 'moment';
 import values from 'object.values';
 import isTouchDevice from 'is-touch-device';
@@ -54,6 +54,7 @@ const propTypes = forbidExtraProps({
   hideKeyboardShortcutsPanel: PropTypes.bool,
   daySize: nonNegativeInteger,
   verticalHeight: nonNegativeInteger,
+  transitionDuration: nonNegativeNumber(),
 
   navPrev: PropTypes.node,
   navNext: PropTypes.node,
@@ -102,6 +103,7 @@ const defaultProps = {
   firstDayOfWeek: null,
   daySize: DAY_SIZE,
   verticalHeight: null,
+  transitionDuration: 0.2,
 
   navPrev: null,
   navNext: null,
@@ -590,6 +592,7 @@ export default class DayPickerSingleDateController extends React.Component {
       showKeyboardShortcuts,
       weekDayFormat,
       verticalHeight,
+      transitionDuration,
     } = this.props;
 
     const { currentMonth, visibleDays } = this.state;
@@ -626,6 +629,7 @@ export default class DayPickerSingleDateController extends React.Component {
         weekDayFormat={weekDayFormat}
         dayAriaLabelFormat={dayAriaLabelFormat}
         verticalHeight={verticalHeight}
+        transitionDuration={transitionDuration}
       />
     );
 

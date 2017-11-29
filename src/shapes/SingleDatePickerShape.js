@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import momentPropTypes from 'react-moment-proptypes';
-import { nonNegativeInteger } from 'airbnb-prop-types';
+import { nonNegativeInteger, nonNegativeNumber } from 'airbnb-prop-types';
 
 import { SingleDatePickerPhrases } from '../defaultPhrases';
 import getPhrasePropTypes from '../utils/getPhrasePropTypes';
@@ -50,6 +50,7 @@ export default {
   daySize: nonNegativeInteger,
   isRTL: PropTypes.bool,
   verticalHeight: nonNegativeInteger,
+  transitionDuration: nonNegativeNumber(),
 
   // navigation related props
   navPrev: PropTypes.node,

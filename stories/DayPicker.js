@@ -119,6 +119,11 @@ storiesOf('DayPicker', module)
   ))
   .addWithInfo('with custom week day format', () => (
     <DayPicker
-      weekDayFormat='ddd'
+      weekDayFormat="ddd"
+    />
+  ))
+  .addWithInfo('with no animation', () => (
+    <DayPicker
+      transitionDuration={0}
     />
   ));

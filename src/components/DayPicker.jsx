@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import shallowCompare from 'react-addons-shallow-compare';
-import { forbidExtraProps, nonNegativeInteger } from 'airbnb-prop-types';
+import { forbidExtraProps, nonNegativeInteger, nonNegativeNumber } from 'airbnb-prop-types';
 import { css, withStyles, withStylesPropTypes } from 'react-with-styles';
 
 import moment from 'moment';
@@ -56,6 +56,7 @@ const propTypes = forbidExtraProps({
   daySize: nonNegativeInteger,
   isRTL: PropTypes.bool,
   verticalHeight: nonNegativeInteger,
+  transitionDuration: nonNegativeNumber(),
 
   // navigation props
   navPrev: PropTypes.node,
@@ -102,6 +103,7 @@ export const defaultProps = {
   daySize: DAY_SIZE,
   isRTL: false,
   verticalHeight: null,
+  transitionDuration: 0.2,
 
   // navigation props
   navPrev: null,
@@ -688,6 +690,7 @@ class DayPicker extends React.Component {
       phrases,
       verticalHeight,
       dayAriaLabelFormat,
+      transitionDuration,
     } = this.props;
 
     const numOfWeekHeaders = this.isVertical() ? 1 : numberOfMonths;
@@ -808,6 +811,7 @@ class DayPicker extends React.Component {
                 phrases={phrases}
                 isRTL={isRTL}
                 dayAriaLabelFormat={dayAriaLabelFormat}
+                transitionDuration={transitionDuration}
               />
               {verticalScrollable && this.renderNavigation()}
             </div>

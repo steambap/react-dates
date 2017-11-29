@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import shallowCompare from 'react-addons-shallow-compare';
 import momentPropTypes from 'react-moment-proptypes';
-import { forbidExtraProps, nonNegativeInteger } from 'airbnb-prop-types';
+import { forbidExtraProps, nonNegativeInteger, nonNegativeNumber } from 'airbnb-prop-types';
 import { css, withStyles, withStylesPropTypes } from 'react-with-styles';
 import moment from 'moment';
 import { addEventListener } from 'consolidated-events';
@@ -50,6 +50,7 @@ const propTypes = forbidExtraProps({
   firstDayOfWeek: DayOfWeekShape,
   setCalendarMonthHeights: PropTypes.func,
   isRTL: PropTypes.bool,
+  transitionDuration: nonNegativeNumber(),
 
   // i18n
   monthFormat: PropTypes.string,
@@ -78,6 +79,7 @@ const defaultProps = {
   firstDayOfWeek: null,
   setCalendarMonthHeights() {},
   isRTL: false,
+  transitionDuration: 0.2,
 
   // i18n
   monthFormat: 'MMMM YYYY', // english locale
@@ -166,11 +168,17 @@ class CalendarMonthGrid extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { isAnimating, onMonthTransitionEnd, setCalendarMonthHeights } = this.props;
+    const {
+      isAnimating,
+      transitionDuration,
+      onMonthTransitionEnd,
+      setCalendarMonthHeights,
+    } = this.props;
 
     // For IE9, immediately call onMonthTransitionEnd instead of
-    // waiting for the animation to complete
-    if (!this.isTransitionEndSupported && isAnimating) {
+    // waiting for the animation to complete. Similarly, if transitionDuration
+    // is set to 0, also immediately invoke the onMonthTransitionEnd callback
+    if ((!this.isTransitionEndSupported || !transitionDuration) && isAnimating) {
       onMonthTransitionEnd();
     }
 
@@ -232,6 +240,7 @@ class CalendarMonthGrid extends React.Component {
       styles,
       phrases,
       dayAriaLabelFormat,
+      transitionDuration,
     } = this.props;
 
     const { months } = this.state;
@@ -253,8 +262,8 @@ class CalendarMonthGrid extends React.Component {
           isVertical && styles.CalendarMonthGrid__vertical,
           isVerticalScrollable && styles.CalendarMonthGrid__vertical_scrollable,
           isAnimating && styles.CalendarMonthGrid__animating,
-          isAnimating && {
-            transition: 'transform 0.2s ease-in-out',
+          isAnimating && transitionDuration && {
+            transition: `transform ${transitionDuration}s ease-in-out`,
           },
           {
             ...getTransformStyles(transformValue),

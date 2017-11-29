@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import momentPropTypes from 'react-moment-proptypes';
-import { nonNegativeInteger } from 'airbnb-prop-types';
+import { nonNegativeInteger, nonNegativeNumber } from 'airbnb-prop-types';
 
 import { DateRangePickerPhrases } from '../defaultPhrases';
 import getPhrasePropTypes from '../utils/getPhrasePropTypes';
@@ -57,6 +57,7 @@ export default {
   renderCalendarInfo: PropTypes.func,
   hideKeyboardShortcutsPanel: PropTypes.bool,
   verticalHeight: nonNegativeInteger,
+  transitionDuration: nonNegativeNumber(),
 
   // navigation related props
   navPrev: PropTypes.node,

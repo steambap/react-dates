@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import momentPropTypes from 'react-moment-proptypes';
-import { forbidExtraProps, nonNegativeInteger } from 'airbnb-prop-types';
+import { forbidExtraProps, nonNegativeInteger, nonNegativeNumber } from 'airbnb-prop-types';
 import moment from 'moment';
 import values from 'object.values';
 import isTouchDevice from 'is-touch-device';
@@ -70,6 +70,7 @@ const propTypes = forbidExtraProps({
   renderCalendarInfo: PropTypes.func,
   firstDayOfWeek: DayOfWeekShape,
   verticalHeight: nonNegativeInteger,
+  transitionDuration: nonNegativeNumber(),
 
   // accessibility
   onBlur: PropTypes.func,
@@ -121,6 +122,7 @@ const defaultProps = {
   renderCalendarInfo: null,
   firstDayOfWeek: null,
   verticalHeight: null,
+  transitionDuration: 0.2,
 
   // accessibility
   onBlur() {},
@@ -904,6 +906,7 @@ export default class DayPickerRangeController extends React.Component {
       weekDayFormat,
       dayAriaLabelFormat,
       verticalHeight,
+      transitionDuration,
     } = this.props;
 
     const { currentMonth, phrases, visibleDays } = this.state;
@@ -943,6 +946,7 @@ export default class DayPickerRangeController extends React.Component {
         weekDayFormat={weekDayFormat}
         dayAriaLabelFormat={dayAriaLabelFormat}
         verticalHeight={verticalHeight}
+        transitionDuration={transitionDuration}
       />
     );
   }
